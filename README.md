@@ -36,13 +36,6 @@ This project demonstrates a simple Arduino-based system that controls an LED's s
 
 ## Schematic
 
-Below is a textual representation of the circuit:
-
-- **Pushbutton 1**: Connected between Arduino Pin 6 and GND (with internal pull-up resistor).
-- **Pushbutton 2**: Connected between Arduino Pin 7 and GND (with internal pull-up resistor).
-- **LED**: Anode to Arduino Pin 8, cathode to GND through a 220-330 ohm resistor.
-- **Power**: The circuit uses the Arduino's 5V and GND pins for power.
-
 ![Scheme](img/1.png)
 
 ![Scheme](img/2.png)
