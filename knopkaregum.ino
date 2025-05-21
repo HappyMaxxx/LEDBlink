@@ -36,6 +36,8 @@ void read_python() {
         val_plus();
       } else if (inputString == "-") {
         val_minus();
+      } else {
+        Serial.println("Error: Invalid command");
       }
       
       inputString = ""; // скидаємо буфер
@@ -54,11 +56,12 @@ void val_plus() {
 }
 
 void val_minus() {
-  if (not ((val-1) < 0)) {
-    val = (val - 1) % 4;
-    } else {
+  if (val > 0) {
+    val--;
+  } else {
     val = 3;
   }
+
   ledState = false;
   digitalWrite(ledpin, LOW);
   previousMillis1 = millis();

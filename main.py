@@ -1,6 +1,10 @@
 import serial.tools.list_ports
 import os
 
+BAUDRATE = 9600
+TIMEOUT = 1
+VALID_COMMANDS = {'1', '2', '3', '+', '-'}
+
 def clear():
     if os.name == 'nt':
         os.system('cls')
@@ -18,13 +22,25 @@ def list_serial_ports():
 
 def main():
     ports = list_serial_ports()
+
+    if not ports:
+        print("No serial ports found. Please connect a device.")
+        exit(1)
+
+    print("Available ports:")
+    for i, port in enumerate(ports, 1):
+        print(f"{i}. {port.device} - {port.description}")
+    choice = int(input("Select port number: ")) - 1
+
+    if choice < 0 or choice >= len(ports):
+        print("Invalid port selection.")
+        exit(1)
     
     port = serial.Serial(
-        port=ports[0].device,
-        baudrate=9600,
-        timeout=1
+        port=ports[choice].device,
+        baudrate=BAUDRATE,
+        timeout=TIMEOUT
     )
-    
     return port
 
 if __name__ == "__main__":
@@ -37,7 +53,7 @@ if __name__ == "__main__":
             mode = str(input("Enter mode: "))
             if mode == 'q':
                 break
-            elif mode in ['1', '2', '3', '+', '-']:
+            elif mode in VALID_COMMANDS:
                 port.write((mode + '\n').encode('utf-8'))
             else:
                 port.write('0\n'.encode('utf-8'))
